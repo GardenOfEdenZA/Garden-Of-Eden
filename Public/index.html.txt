@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1a3a32" />
+  <meta name="description" content="The Garden Of Eden Cannabis Club | Premium THC Strains, Pre-rolls & Edibles | Cape Town | 18+ Only" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://garden-of-eden-cannabis-club.vercel.app" />
+  <title>The Garden Of Eden | Premium THC | Cape Town</title>
+
+  <!-- FAVICON -->
+  <link rel="icon" href="https://i.postimg.cc/057FNtY3/Pics-Art-11-12-04-31-13.png" type="image/png">
+  <link rel="apple-touch-icon" href="https://i.postimg.cc/057FNtY3/Pics-Art-11-12-04-31-13.png">
+
+  <!-- TAILWIND -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#1a3a32',
+            secondary: '#d4af37',
+            accent: '#0f1e1a',
+            whatsapp: '#25D366',
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+            handwritten: ['"Dancing Script"', 'cursive'],
+          },
+          animation: { 
+            'pulse-slow': 'pulse 3s infinite', 
+            'float': 'float 3s ease-in-out infinite',
+            'fade-in': 'fadeIn 0.5s ease-in'
+          },
+          keyframes: { 
+            float: { 
+              '0%, 100%': { transform: 'translateY(0)' }, 
+              '50%': { transform: 'translateY(-10px)' } 
+            },
+            fadeIn: {
+              '0%': { opacity: '0', transform: 'translateY(10px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- FONTS -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+  <!-- FEATHER ICONS -->
+  <script src="https://unpkg.com/feather-icons"></script>
+
+  <!-- STYLES -->
+  <style>
+    :root {
+      --primary: #1a3a32;
+      --secondary: #d4af37;
+      --accent: #0f1e1a;
+      --whatsapp: #25D366;
+    }
+
+    body { 
+      background: #f9f9f9; 
+      font-family: 'Inter', sans-serif; 
+      color: #222; 
+    }
+    .dark body { 
+      background: var(--accent); 
+      color: #e0e0e0; 
+    }
+    .hero { 
+      background: linear-gradient(rgba(26,58,50,0.92), rgba(26,58,50,0.95)), url('https://images.pexels.com/photos/414579/pexels-photo-414579.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover; 
+      color: white; 
+      position: relative; 
+    }
+    .hero::before { 
+      content: ''; 
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      right: 0; 
+      bottom: 0; 
+      background: radial-gradient(circle at center top, rgba(26,58,50,0.7), rgba(26,58,50,0.98)); 
+      z-index: 1; 
+    }
+    .hero > div { 
+      position: relative; 
+      z-index: 2; 
+    }
+
+    .btn-gold { 
+      background: linear-gradient(135deg, var(--secondary), #b8961e); 
+      color: #1a1a1a; 
+      font-weight: 600; 
+      border-radius: 0.75rem; 
+      padding: 0.75rem 1.75rem; 
+      transition: all 0.3s; 
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-gold:hover { 
+      transform: translateY(-2px); 
+      box-shadow: 0 8px 20px rgba(212,175,55,0.4); 
+    }
+    .admin-btn {
+      background: linear-gradient(135deg, #6b7280, #4b5563);
+      color: white;
+      font-weight: 600;
+      border-radius: 0.75rem;
+      padding: 0.5rem 1rem;
+      transition: all 0.3s;
+      position: fixed;
+      top: 6rem;
+      right: 6rem;
+      z-index: 40;
+    }
+    .admin-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(107, 114, 128, 0.4);
+    }
+
+    /* ... (keep all your existing styles) ... */
+  </style>
+</head>
+
+<body class="min-h-screen transition-colors duration-300">
+  <!-- ADMIN BUTTON -->
+  <a href="/admin.html" class="admin-btn hidden" id="adminBtn">
+    <i data-feather="settings" class="w-4 h-4 mr-2"></i> Admin
+  </a>
+
+  <!-- SUCCESS TOAST -->
+  <div id="success-message" class="bg-green-600 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center">
+    <i data-feather="check-circle" class="w-5 h-5 mr-2"></i> <span id="success-text">Item added to cart!</span>
+  </div>
+
+  <!-- ERROR TOAST -->
+  <div id="error-message" class="bg-red-600 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center">
+    <i data-feather="alert-circle" class="w-5 h-5 mr-2"></i> <span id="error-text">An error occurred</span>
+  </div>
+
+  <!-- AGE GATE -->
+  <div id="ageGate">
+    <div class="age-modal p-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Members Only</h2>
+      <p class="text-lg mb-6">You must be 18 or older to enter The Garden Of Eden Cannabis Club.</p>
+      <button id="ageConfirm" class="btn-gold text-lg px-8 py-3">I am 18+ <i data-feather="check" class="inline w-5 h-5 ml-1"></i></button>
+      <p class="mt-6 text-sm text-gray-600 dark:text-gray-400">Not of legal age? Please exit.</p>
+    </div>
+  </div>
+
+  <!-- FLOATING BUTTONS -->
+  <a href="https://wa.me/27812345678?text=Hi%20Garden%20Of%20Eden!%20I'd%20like%20to%20know%20more%20about%20membership." class="whatsapp-float" target="_blank" aria-label="Contact us on WhatsApp">
+    <i data-feather="message-circle"></i>
+  </a>
+  <button class="cart-float" id="cartButton" aria-label="View cart">
+    <i data-feather="shopping-bag"></i>
+    <span class="cart-count" id="cartCount">0</span>
+  </button>
+
+  <!-- HERO -->
+  <section class="hero py-20 px-6 md:px-12 lg:px-24 xl:px-32 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto text-center">
+      <div class="mb-6 flex justify-center">
+        <img 
+          src="https://i.postimg.cc/057FNtY3/Pics-Art-11-12-04-31-13.png" 
+          alt="The Garden of Eden Logo" 
+          class="w-32 h-32 md:w-40 md:h-40 object-contain animate-float-logo" 
+          loading="eager"
+          width="160"
+          height="160"
+        >
+      </div>
+      <h1 class="handwritten-title text-secondary mb-2 animate-pulse-slow">THE GARDEN OF EDEN</h1>
+      <p class="text-lg md:text-xl font-medium tracking-wider text-white/90">Where Bliss Meets Bud...</p>
+      <div class="mt-8 space-x-4 hero-buttons">
+        <button id="openMembershipOptions" class="btn-gold inline-block text-lg">Join The Club <i data-feather="user-plus" class="inline w-5 h-5 ml-1"></i></button>
+        <a href="#menu" class="btn-gold inline-block text-lg">View Products <i data-feather="arrow-down" class="inline w-5 h-5 ml-1"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section id="menu" class="py-16 px-6 md:px-12 lg:px-24 xl:px-32 bg-white dark:bg-accent">
+    <div class="max-w-5xl mx-auto">
+      <!-- Products will be dynamically loaded here -->
+      <div id="products-container"></div>
+
+      <!-- CONTACT -->
+      <div class="text-center py-12">
+        <h3 class="text-3xl font-serif font-bold text-primary mb-6">@GardenOfEdenZA</h3>
+        <div class="flex justify-center space-x-8 text-4xl">
+          <a href="https://instagram.com/GardenOfEdenZA" target="_blank" class="text-pink-600 hover:scale-110 transition" aria-label="Follow us on Instagram"><i data-feather="instagram"></i></a>
+          <a href="https://facebook.com/GardenOfEdenZA" target="_blank" class="text-blue-600 hover:scale-110 transition" aria-label="Follow us on Facebook"><i data-feather="facebook"></i></a>
+          <a href="https://x.com/GardenOfEdenZA" target="_blank" class="text-black dark:text-white hover:scale-110 transition" aria-label="Follow us on X"><i data-feather="twitter"></i></a>
+          <a href="https://wa.me/27812345678" target="_blank" class="text-whatsapp hover:scale-110 transition" aria-label="Contact us on WhatsApp"><i data-feather="message-circle"></i></a>
+        </div>
+      </div>
+      <div class="text-center py-8 border-t border-gray-300 dark:border-gray-700">
+        <p class="text-sm uppercase tracking-widest text-gray-600 dark:text-gray-400">Not Sold To Persons Under The Age Of 18. #LegalizeIt</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- All your existing modals (cart, membership, delivery) remain the same -->
+  <!-- CART PAGE -->
+  <div id="cartPage">
+    <div class="cart-content">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-serif font-bold text-primary">Your Order</h2>
+        <button id="closeCart" class="text-2xl" aria-label="Close cart">×</button>
+      </div>
+      <div id="joinLaterBtn" class="hidden mb-4 text-center">
+        <button class="btn-gold text-sm py-2 px-6">Join The Club <i data-feather="user-plus" class="inline w-4 h-4 ml-1"></i></button>
+      </div>
+      <div id="cartItems"></div>
+      <div class="mt-6 pt-6 border-t border-gray-300 dark:border-gray-600 space-y-2">
+        <div class="flex justify-between text-lg"><span>Subtotal:</span><span id="subtotal">R0</span></div>
+        <div class="flex justify-between text-lg"><span>Delivery:</span><span id="deliveryFee">—</span></div>
+        <div class="flex justify-between text-xl font-bold"><span>Total:</span><span id="cartTotal">R0</span></div>
+        <button id="openDelivery" class="btn-gold w-full mt-4 text-lg py-3">Set Delivery <i data-feather="truck" class="inline w-5 h-5 ml-1"></i></button>
+        <button id="checkoutBtn" class="btn-gold w-full mt-2 text-lg py-3">Send via WhatsApp <i data-feather="send" class="inline w-5 h-5 ml-1"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DELIVERY MODAL -->
+  <div id="deliveryModal">
+    <div class="modal-content">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-serif font-bold text-primary">Delivery Options</h2>
+        <button id="closeDelivery" class="text-2xl" aria-label="Close delivery options">×</button>
+      </div>
+      <div class="space-y-4">
+        <div class="option-group">
+          <div class="option-btn selected" data-type="Local (Cape Town)" data-fee="150">Local — R150</div>
+          <div class="option-btn" data-type="Nationwide" data-fee="250">Nationwide — R250</div>
+        </div>
+        <div>
+          <input type="text" id="deliveryAddress" placeholder="Enter full delivery address" class="form-input" required>
+          <div class="error-text" id="addressError">Please enter a valid delivery address</div>
+        </div>
+        <button id="confirmDelivery" class="btn-gold w-full py-3 text-lg">Confirm <i data-feather="check" class="inline w-5 h-5 ml-1"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEMBERSHIP OPTIONS MODAL -->
+  <div id="membershipOptionsModal" style="display:none">
+    <div class="modal-content">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-serif font-bold text-primary">Choose Your Membership</h2>
+        <button id="closeMembershipOptions" class="text-2xl" aria-label="Close membership options">×</button>
+      </div>
+      <p class="text-center mb-8 text-gray-600 dark:text-gray-400">Select the membership that's right for you</p>
+      
+      <div class="membership-options-grid grid md:grid-cols-2 gap-6 mb-8">
+        <!-- Free Membership Option -->
+        <div class="membership-option" id="freeMembershipOption">
+          <div>
+            <h3 class="text-2xl font-serif font-bold text-primary mb-2">Free Membership</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Basic access to our products</p>
+            <div class="membership-price text-primary">FREE</div>
+            <ul class="membership-features">
+              <li><i data-feather="check" class="w-4 h-4"></i> Access to product catalog</li>
+              <li><i data-feather="check" class="w-4 h-4"></i> Standard pricing</li>
+              <li><i data-feather="check" class="w-4 h-4"></i> Regular updates</li>
+            </ul>
+          </div>
+          <button class="btn-gold w-full mt-4">Select Free <i data-feather="user" class="inline w-4 h-4 ml-1"></i></button>
+        </div>
+
+        <!-- Premium Membership Option -->
+        <div class="membership-option premium" id="premiumMembershipOption">
+          <div>
+            <h3 class="text-2xl font-serif font-bold text-secondary mb-2">Premium Membership</h3>
+            <p class="text-gray-200 mb-4">Exclusive benefits & discounts</p>
+            <div class="membership-price text-secondary">R420/month</div>
+            <ul class="membership-features">
+              <li><i data-feather="star" class="w-4 h-4"></i> <strong>All Free benefits</strong></li>
+              <li><i data-feather="star" class="w-4 h-4"></i> 15% discount on all products</li>
+              <li><i data-feather="star" class="w-4 h-4"></i> Early access to new strains</li>
+              <li><i data-feather="star" class="w-4 h-4"></i> Priority delivery</li>
+            </ul>
+          </div>
+          <button class="btn-gold w-full mt-4 bg-white text-black hover:bg-gray-100">Go Premium <i data-feather="award" class="inline w-4 h-4 ml-1"></i></button>
+        </div>
+      </div>
+      
+      <p class="text-center text-sm text-gray-500 dark:text-gray-400">
+        You can upgrade or downgrade at any time
+      </p>
+    </div>
+  </div>
+
+  <!-- MEMBERSHIP MODALS -->
+  <div id="membershipModal" style="display:none">
+    <div class="modal-content">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-serif font-bold text-primary">Join The Club — Free</h2>
+        <button id="closeMembership" class="text-2xl" aria-label="Close membership form">×</button>
+      </div>
+      <form id="membershipForm" class="space-y-4">
+        <div>
+          <input type="text" name="Full Name" placeholder="Full Name" required class="form-input">
+          <div class="error-text" id="nameError">Please enter your full name</div>
+        </div>
+        <div>
+          <input type="tel" name="Phone Number" placeholder="Phone Number" required class="form-input">
+          <div class="error-text" id="phoneError">Please enter a valid phone number</div>
+        </div>
+        <div>
+          <input type="email" name="Email Address" placeholder="Email Address" required class="form-input">
+          <div class="error-text" id="emailError">Please enter a valid email address</div>
+        </div>
+        <button type="submit" class="btn-gold w-full py-3 text-lg">Join Free <i data-feather="check" class="inline w-5 h-5 ml-1"></i></button>
+      </form>
+    </div>
+  </div>
+
+  <!-- DARK MODE -->
+  <button id="darkModeToggle" class="fixed top-6 right-6 z-40 bg-white dark:bg-gray-800 p-3 rounded-full shadow-lg" aria-label="Toggle dark mode">
+    <i data-feather="moon" class="w-6 h-6 hidden dark:inline"></i>
+    <i data-feather="sun" class="w-6 h-6 dark:hidden"></i>
+  </button>
+
+  <!-- SCRIPT -->
+  <script>
+    // Configuration
+    const CONFIG = {
+      BUSINESS_PHONE: '+27812345678',
+      DATA_FILE: '/data/products.json'
+    };
+
+    // Initialize Feather Icons
+    feather.replace();
+
+    // Data Manager
+    class DataManager {
+      constructor() {
+        this.products = [];
+        this.loadProducts();
+      }
+
+      async loadProducts() {
+        try {
+          const response = await fetch(CONFIG.DATA_FILE);
+          this.products = await response.json();
+          this.renderProducts();
+          this.initializeAdminButton();
+        } catch (error) {
+          console.error('Error loading products:', error);
+          // Fallback to default products
+          this.products = this.getDefaultProducts();
+          this.renderProducts();
+        }
+      }
+
+      getDefaultProducts() {
+        return [
+          {
+            id: 'strains',
+            type: 'strains',
+            title: 'SELECT YOUR STRAIN',
+            strains: [
+              {
+                id: 'tropical-skunk',
+                name: 'Tropical Skunk',
+                description: 'Exotic tropical flavor with skunky undertones',
+                image: 'https://i.postimg.cc/QCvHP4HJ/20251112-115355.jpg',
+                options: [
+                  { id: 'tropical-skunk-10g', name: 'Tropical Skunk (10g)', price: 120 },
+                  { id: 'tropical-skunk-40g', name: 'Tropical Skunk (40g)', price: 450 }
+                ]
+              },
+              {
+                id: 'alpha-express',
+                name: 'Alpha Express',
+                description: 'Fast-acting hybrid with balanced effects',
+                image: 'https://i.postimg.cc/QCvHP4HJ/20251112-115355.jpg',
+                options: [
+                  { id: 'alpha-express-10g', name: 'Alpha Express (10g)', price: 120 },
+                  { id: 'alpha-express-40g', name: 'Alpha Express (40g)', price: 450 }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'stoner-days',
+            type: 'pre-roll',
+            name: "Stoner Days™ (10x)",
+            price: 300,
+            image: "https://i.postimg.cc/nrNC5RCk/20251112-114115.jpg",
+            description: "10x Outdoor Pre-rolls"
+          },
+          {
+            id: 'greenhouse',
+            type: 'pre-roll',
+            name: "Greenhouse (5x)",
+            price: 250,
+            image: "https://i.postimg.cc/LsYrTxjJ/20251112-114110.jpg",
+            description: "5x Greenhouse Pre-rolls"
+          },
+          {
+            id: 'edibles',
+            type: 'edibles',
+            title: 'Edibles',
+            categories: [
+              {
+                name: 'Gummy Bears (10mg THC)',
+                image: 'https://i.postimg.cc/pr3p7GpB/20251112-114040.jpg',
+                options: [
+                  { id: 'gummy-bears-15x', name: 'Gummy Bears (15x)', price: 90 },
+                  { id: 'gummy-bears-30x', name: 'Gummy Bears (30x)', price: 150 }
+                ]
+              },
+              {
+                name: 'Leaf Gummies (50mg THC)',
+                image: 'https://i.postimg.cc/L54dzLRQ/20251112-160834.jpg',
+                options: [
+                  { id: 'leaf-gummies-2x', name: 'Leaf Gummies (2x)', price: 80 },
+                  { id: 'leaf-gummies-5x', name: 'Leaf Gummies (5x)', price: 200 }
+                ]
+              }
+            ]
+          }
+        ];
+      }
+
+      renderProducts() {
+        const container = document.getElementById('products-container');
+        container.innerHTML = this.products.map(product => this.renderProduct(product)).join('');
+        this.initializeEventListeners();
+        feather.replace();
+      }
+
+      renderProduct(product) {
+        switch (product.type) {
+          case 'strains':
+            return this.renderStrains(product);
+          case 'pre-roll':
+            return this.renderPreRoll(product);
+          case 'edibles':
+            return this.renderEdibles(product);
+          default:
+            return '';
+        }
+      }
+
+      renderStrains(product) {
+        return `
+          <div class="product-card mb-12">
+            <div class="bg-gradient-to-r from-primary to-accent p-6 text-white">
+              <h2 class="text-3xl md:text-4xl font-serif font-bold">${product.title}</h2>
+            </div>
+            <div class="p-8">
+              <div class="strain-options-grid grid md:grid-cols-2 gap-6 mb-8">
+                ${product.strains.map(strain => `
+                  <div class="strain-option ${strain.id === 'tropical-skunk' ? 'selected' : ''}" 
+                       data-strain="${strain.id}" data-img="${strain.image}">
+                    <div>
+                      <img src="${strain.image}" alt="${strain.name}" class="strain-image">
+                      <div class="strain-name">${strain.name}</div>
+                      <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">${strain.description}</p>
+                    </div>
+                    <div>
+                      <div class="option-group">
+                        ${strain.options.map((option, index) => `
+                          <div class="option-btn ${index === 0 ? 'selected' : ''}" 
+                               data-name="${option.name}" data-price="${option.price}" data-id="${option.id}">
+                            <span>R${option.price}</span>
+                            <small class="block text-xs">${option.name.includes('40g') ? '40g <span class="text-green-600">Save R30</span>' : '10g'}</small>
+                          </div>
+                        `).join('')}
+                      </div>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+              <div class="space-y-6">
+                <div class="flex items-center justify-center gap-3">
+                  <button class="qty-btn minus" aria-label="Decrease quantity">-</button>
+                  <span class="qty-display">1</span>
+                  <button class="qty-btn plus" aria-label="Increase quantity">+</button>
+                </div>
+                <button class="add-selected-strain btn-gold w-full py-3 text-lg">
+                  Add to Cart <i data-feather="shopping-cart" class="inline w-5 h-5 ml-1"></i>
+                </button>
+                <div class="loading"></div>
+              </div>
+            </div>
+            <div class="bg-gray-100 dark:bg-gray-800 h-48 md:h-64 flex items-center justify-center overflow-hidden">
+              <img id="strainDisplayImage" src="${product.strains[0].image}" alt="Selected Strain" class="h-full w-full object-cover">
+            </div>
+          </div>
+        `;
+      }
+
+      renderPreRoll(product) {
+        return `
+          <div class="product-card" data-product='${JSON.stringify(product).replace(/'/g, "&apos;")}'>
+            <div class="bg-gradient-to-br from-amber-600 to-amber-700 p-5 text-white">
+              <h3 class="text-2xl font-serif font-bold">Pre-rolled Joints</h3>
+            </div>
+            <div class="p-6 space-y-4">
+              <p class="text-lg font-medium">${product.description}: <span class="text-xl font-bold text-primary">R${product.price}</span></p>
+              <div class="flex items-center justify-center gap-3">
+                <button class="qty-btn minus">-</button>
+                <span class="qty-display">1</span>
+                <button class="qty-btn plus">+</button>
+              </div>
+              <button class="add-to-cart-btn btn-gold w-full py-3 text-lg">
+                Add to Cart <i data-feather="shopping-cart" class="inline w-5 h-5 ml-1"></i>
+              </button>
+              <div class="loading"></div>
+            </div>
+            <div class="bg-gray-100 dark:bg-gray-800 h-40 md:h-48 flex items-center justify-center overflow-hidden">
+              <img src="${product.image}" alt="${product.name}" class="h-full w-full object-cover rounded-b-lg">
+            </div>
+          </div>
+        `;
+      }
+
+      renderEdibles(product) {
+        return `
+          <div class="product-card mb-12">
+            <div class="bg-gradient-to-r from-rose-600 to-pink-600 p-6 text-white">
+              <h2 class="text-3xl md:text-4xl font-serif font-bold">${product.title}</h2>
+            </div>
+            <div class="p-8 space-y-8">
+              ${product.categories.map(category => `
+                <div>
+                  <h3 class="text-xl font-bold mb-3">${category.name}</h3>
+                  <div class="option-group" data-product-img="${category.image}">
+                    ${category.options.map((option, index) => `
+                      <div class="option-btn ${index === 0 ? 'selected' : ''}" 
+                           data-name="${option.name}" data-price="${option.price}" data-id="${option.id}">
+                        ${option.name.split(' ')[0]} R${option.price}
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+              `).join('')}
+              <div class="flex items-center justify-center gap-3">
+                <button class="qty-btn minus">-</button>
+                <span class="qty-display">1</span>
+                <button class="qty-btn plus">+</button>
+              </div>
+              <button class="add-selected-edibles btn-gold w-full py-3 text-lg">
+                Add Selected to Cart <i data-feather="shopping-cart" class="inline w-5 h-5 ml-1"></i>
+              </button>
+              <div class="loading"></div>
+            </div>
+            <div class="bg-gray-100 dark:bg-gray-800 h-48 md:h-64 flex items-center justify-center overflow-hidden">
+              <img src="${product.categories[0].image}" alt="Edibles" class="h-full w-full object-cover">
+            </div>
+          </div>
+        `;
+      }
+
+      initializeEventListeners() {
+        // Your existing event listener code here
+        // This would include all the strain selection, cart functionality, etc.
+      }
+
+      initializeAdminButton() {
+        // Show admin button to site owner
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+          document.getElementById('adminBtn').classList.remove('hidden');
+        }
+      }
+    }
+
+    // Initialize the data manager
+    const dataManager = new DataManager();
+
+    // Your existing CartManager and other classes remain the same
+    // ... (include all your existing CartManager, StrainManager, etc. code)
+
+  </script>
+</body>
+</html>
