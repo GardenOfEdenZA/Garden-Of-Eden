@@ -1,0 +1,68 @@
+[
+  {
+    "id": "strains",
+    "type": "strains",
+    "title": "SELECT YOUR STRAIN",
+    "strains": [
+      {
+        "id": "tropical-skunk",
+        "name": "Tropical Skunk",
+        "description": "Exotic tropical flavor with skunky undertones",
+        "image": "https://i.postimg.cc/QCvHP4HJ/20251112-115355.jpg",
+        "options": [
+          { "id": "tropical-skunk-10g", "name": "Tropical Skunk (10g)", "price": 120 },
+          { "id": "tropical-skunk-40g", "name": "Tropical Skunk (40g)", "price": 450 }
+        ]
+      },
+      {
+        "id": "alpha-express",
+        "name": "Alpha Express",
+        "description": "Fast-acting hybrid with balanced effects",
+        "image": "https://i.postimg.cc/QCvHP4HJ/20251112-115355.jpg",
+        "options": [
+          { "id": "alpha-express-10g", "name": "Alpha Express (10g)", "price": 120 },
+          { "id": "alpha-express-40g", "name": "Alpha Express (40g)", "price": 450 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "stoner-days",
+    "type": "pre-roll",
+    "name": "Stoner Days™ (10x)",
+    "price": 300,
+    "image": "https://i.postimg.cc/nrNC5RCk/20251112-114115.jpg",
+    "description": "10x Outdoor Pre-rolls"
+  },
+  {
+    "id": "greenhouse",
+    "type": "pre-roll",
+    "name": "Greenhouse (5x)",
+    "price": 250,
+    "image": "https://i.postimg.cc/LsYrTxjJ/20251112-114110.jpg",
+    "description": "5x Greenhouse Pre-rolls"
+  },
+  {
+    "id": "edibles",
+    "type": "edibles",
+    "title": "Edibles",
+    "categories": [
+      {
+        "name": "Gummy Bears (10mg THC)",
+        "image": "https://i.postimg.cc/pr3p7GpB/20251112-114040.jpg",
+        "options": [
+          { "id": "gummy-bears-15x", "name": "Gummy Bears (15x)", "price": 90 },
+          { "id": "gummy-bears-30x", "name": "Gummy Bears (30x)", "price": 150 }
+        ]
+      },
+      {
+        "name": "Leaf Gummies (50mg THC)",
+        "image": "https://i.postimg.cc/L54dzLRQ/20251112-160834.jpg",
+        "options": [
+          { "id": "leaf-gummies-2x", "name": "Leaf Gummies (2x)", "price": 80 },
+          { "id": "leaf-gummies-5x", "name": "Leaf Gummies (5x)", "price": 200 }
+        ]
+      }
+    ]
+  }
+]
