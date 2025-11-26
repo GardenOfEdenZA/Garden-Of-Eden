@@ -52,7 +52,7 @@
         "image": "https://i.postimg.cc/pr3p7GpB/20251112-114040.jpg",
         "options": [
           { "id": "gummy-bears-15x", "name": "Gummy Bears (15x)", "price": 90 },
-          { "id": "gummy-bears-30x", "name": "Gummy Bears (30x)", "price": 150 }
+          { "id": "gummy-bears-30x", "name": "gummy Bears (30x)", "price": 150 }
         ]
       },
       {
