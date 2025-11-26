@@ -7,7 +7,7 @@
   <meta name="description" content="The Garden Of Eden Cannabis Club | Premium THC Strains, Pre-rolls & Edibles | Johannesburg | 18+ Only" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://garden-of-eden-cannabis-club.vercel.app" />
-  <title>The Garden Of Eden | Premium THC | Cape Town</title>
+  <title>The Garden Of Eden | Premium THC | Johannesburg </title>
 
   <!-- FAVICON -->
   <link rel="icon" href="https://i.postimg.cc/057FNtY3/Pics-Art-11-12-04-31-13.png" type="image/png">
